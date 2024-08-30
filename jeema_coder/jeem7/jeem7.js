@@ -8,6 +8,7 @@ class App extends React.Component{
             telephoneInput:""
         }
     }
+    //on pouvait creer une fonction onSubmit pour enregistrer les donnees
 
     render(){
         return(
@@ -15,6 +16,7 @@ class App extends React.Component{
             <h1 className="text-center">JeemarCoders7</h1>
             <div className="container col-lg-12 m-auto col-12">
             <form>
+            {/* on peut appeler la fonction onSubmit a l'interieur de la balise form */}
         <div className ="row">
         <div class="col-6 mb-3">
               <label class="form-label">Prenom</label>
@@ -66,6 +68,8 @@ class App extends React.Component{
                 onChange={(e) =>{
                     this.setState({
                         telephoneInput:e.target.value
+                        //target c'est pour cibler une (valeur)
+                        //handleChange pour une fonction qui permet de mettre a jour les etats
                     })
                 }}
                 />
@@ -73,6 +77,8 @@ class App extends React.Component{
         </div>
 
           <button type="submit" class="btn btn-primary w-100">Submit</button>
+{/* on peut aussi la fonction onSubmit dans le button gace a l'attribut onClick */}
+
       </form>
             </div>
         </>
@@ -82,3 +88,5 @@ class App extends React.Component{
 }
 
 ReactDOM.render(<App />, document.getElementById("root"))
+
+// utilser local storage pour stocker les donnees en se basant des commentaires

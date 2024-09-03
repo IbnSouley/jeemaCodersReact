@@ -6,9 +6,13 @@ class JeemaCoder extends React.Component {
             nomInput: "",
             emailInput: "",
             telephoneInput: "",
-            coders: []
-        };
+            coders: [],
+            editIndex: null
+        }
         this.handleClick = this.handleClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleSaveEdit = this.handleSaveEdit.bind(this);
+        this.handleSaveEditSubmit = this.handleSaveEditSubmit.bind(this);
     }
 
     handleClick() {
@@ -26,6 +30,41 @@ class JeemaCoder extends React.Component {
             nomInput: "",
             emailInput: "",
             telephoneInput: "",
+            editIndex: null // Réinitialiser l'index d'édition
+        });
+    }
+
+    handleDelete(index) {
+        const updatedCoders = this.state.coders.filter((_, i) => i !== index);
+        this.setState({ coders: updatedCoders });
+    }
+
+    handleSaveEdit(index) {
+        const coder = this.state.coders[index];
+        this.setState({
+            prenomInput: coder.prenom,
+            nomInput: coder.nom,
+            emailInput: coder.email,
+            telephoneInput: coder.telephone,
+            editIndex: index
+        });
+    }
+
+    handleSaveEditSubmit() {
+        const updatedCoders = [...this.state.coders];
+        updatedCoders[this.state.editIndex] = {
+            prenom: this.state.prenomInput,
+            nom: this.state.nomInput,
+            email: this.state.emailInput,
+            telephone: this.state.telephoneInput,
+        };
+        this.setState({
+            coders: updatedCoders,
+            prenomInput: "",
+            nomInput: "",
+            emailInput: "",
+            telephoneInput: "",
+            editIndex: null
         });
     }
 
@@ -84,10 +123,10 @@ class JeemaCoder extends React.Component {
                             </div>
                         </div>
                         <button
-                            onClick={this.handleClick}
+                            onClick={this.state.editIndex !== null ? this.handleSaveEditSubmit : this.handleClick}
                             className="btn btn-success w-100 mt-3"
                         >
-                            Submit
+                           {this.state.editIndex !== null ? "Enregistrer" : "Submit"}
                         </button>
                     </div>
                 </div>
@@ -100,6 +139,7 @@ class JeemaCoder extends React.Component {
                                 <th scope="col">Nom</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Telephone</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -109,6 +149,20 @@ class JeemaCoder extends React.Component {
                                     <td>{coder.nom}</td>
                                     <td>{coder.email}</td>
                                     <td>{coder.telephone}</td>
+                                    <td>
+                                        <button 
+                                            onClick={() => this.handleSaveEdit(index)}
+                                            className="btn btn-warning"
+                                        >
+                                            Modifier
+                                        </button>
+                                        <button 
+                                            onClick={() => this.handleDelete(index)}
+                                            className="btn btn-danger ms-2"
+                                        >
+                                            Supprimer
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

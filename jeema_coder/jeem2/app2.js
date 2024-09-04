@@ -45,7 +45,7 @@ class JeemaCoder extends React.Component {
     render() {
         return (
             <div className="py-4">
-                <p className="text-center">JeemaCoder1</p>
+                <p className="text-center">JeemaCoder2</p>
                 <div className="container">
                     <div style={{ maxWidth: 600, margin: "auto" }}>
                         <div className="row">
